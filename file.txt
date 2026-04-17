@@ -1,0 +1,11 @@
+Add two links to the footer n @templates/base.html
+
+- "Terms and Conditions"
+- "Privacy Policy"
+
+Both should be plain text link, no special styling needed for now.
+Point both to "#" as placeholder hrefs since the pages don't exist yet.
+
+Do not modify anything else on the page.
+
+git commit -m "landing: added terms and privacy links to footer"
