@@ -1,0 +1,1 @@
+Always use .virtualEnv/bin/python for all python commands
