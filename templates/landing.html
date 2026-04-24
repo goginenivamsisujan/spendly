@@ -24,7 +24,7 @@
         </p>
         <div class="hero-actions">
             <a href="{{ url_for('register') }}" class="btn-hero">Create free account</a>
-            <a href="#" class="btn-hero">See how it works</a>
+            <button class="btn-hero" id="openVideoModal">See how it works</button>
         </div>
     </div>
 
@@ -104,4 +104,57 @@
     </div>
 </section>
 
+<!-- Video modal -->
+<div class="video-modal-overlay" id="videoModal" aria-hidden="true">
+    <div class="video-modal-box" role="dialog" aria-modal="true">
+        <button class="video-modal-close" id="closeVideoModal" aria-label="Close">&times;</button>
+        <div class="video-modal-frame">
+            <iframe
+                id="videoFrame"
+                data-src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                src=""
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    const overlay  = document.getElementById('videoModal');
+    const frame    = document.getElementById('videoFrame');
+    const openBtn  = document.getElementById('openVideoModal');
+    const closeBtn = document.getElementById('closeVideoModal');
+
+    function openModal() {
+        frame.src = frame.dataset.src;
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        closeBtn.focus();
+    }
+
+    function closeModal() {
+        frame.src = '';
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+    });
+})();
+</script>
 {% endblock %}
